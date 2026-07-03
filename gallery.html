@@ -6,50 +6,86 @@
 <title>Jaron's Media Library</title>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <style>
-:root,[data-theme="light"]{--color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;--color-border:#d4d1ca;--color-text:#28251d;--color-text-muted:#7a7974;--color-primary:#01696f;--color-primary-hover:#0c4e54;--shadow-sm:0 1px 2px oklch(0.2 0.01 80/0.06);--shadow-md:0 4px 12px oklch(0.2 0.01 80/0.08);--shadow-lg:0 12px 32px oklch(0.2 0.01 80/0.12);}
-[data-theme="dark"]{--color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;--color-border:#393836;--color-text:#cdccca;--color-text-muted:#797876;--color-primary:#4f98a3;--color-primary-hover:#227f8b;--shadow-sm:0 1px 2px oklch(0/0.2);--shadow-md:0 4px 12px oklch(0/0.3);--shadow-lg:0 12px 32px oklch(0/0.4);}
+:root,[data-theme="light"]{--color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;--color-border:#d4d1ca;--color-text:#28251d;--color-text-muted:#7a7974;--color-primary:#01696f;--color-primary-hover:#0c4e54;--color-success:#437a22;--color-error:#a12c7b;--shadow-sm:0 1px 2px oklch(0.2 0.01 80/0.06);--shadow-md:0 4px 12px oklch(0.2 0.01 80/0.08);--shadow-lg:0 12px 32px oklch(0.2 0.01 80/0.12);}
+[data-theme="dark"]{--color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;--color-border:#393836;--color-text:#cdccca;--color-text-muted:#797876;--color-primary:#4f98a3;--color-primary-hover:#227f8b;--color-success:#6daa45;--color-error:#d163a7;--shadow-sm:0 1px 2px oklch(0/0.2);--shadow-md:0 4px 12px oklch(0/0.3);--shadow-lg:0 12px 32px oklch(0/0.4);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
-body{min-height:100dvh;font-family:'Satoshi',sans-serif;background:var(--color-bg);color:var(--color-text);transition:background 0.2s,color 0.2s;}
-header{position:sticky;top:0;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
-.logo{display:flex;align-items:center;gap:0.75rem;}
-.logo svg{color:var(--color-primary);}
-.logo-text{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;}
-.logo-sub{font-size:0.8rem;color:var(--color-text-muted);font-weight:400;}
-.header-right{display:flex;align-items:center;gap:1rem;}
-.theme-btn{background:none;border:1px solid var(--color-border);border-radius:999px;padding:0.4rem 0.75rem;font-size:0.8rem;color:var(--color-text-muted);cursor:pointer;transition:all 0.18s;}
-.theme-btn:hover{color:var(--color-text);border-color:var(--color-primary);}
-.how-to{font-size:0.8rem;color:var(--color-text-muted);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.5rem;padding:0.35rem 0.75rem;}
-main{max-width:1200px;margin:0 auto;padding:2.5rem 2rem;}
-.page-title{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.4rem;}
-.page-desc{color:var(--color-text-muted);font-size:0.95rem;margin-bottom:2rem;max-width:60ch;}
-.ai-tip{background:var(--color-surface);border:1px solid var(--color-border);border-radius:0.75rem;padding:1rem 1.25rem;margin-bottom:2.5rem;font-size:0.875rem;color:var(--color-text-muted);line-height:1.6;}
+body{min-height:100dvh;font-family:'Satoshi',sans-serif;background:var(--color-bg);color:var(--color-text);}
+header{position:sticky;top:0;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border);padding:0.875rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:0.75rem;}
+.logo{display:flex;align-items:center;gap:0.625rem;}
+.logo svg{color:var(--color-primary);flex-shrink:0;}
+.logo-text{font-size:1rem;font-weight:700;letter-spacing:-0.01em;}
+.logo-sub{font-size:0.72rem;color:var(--color-text-muted);}
+.header-right{display:flex;align-items:center;gap:0.5rem;}
+.theme-btn{background:none;border:1px solid var(--color-border);border-radius:999px;padding:0.35rem 0.65rem;font-size:0.75rem;color:var(--color-text-muted);cursor:pointer;}
+.upload-toggle{background:var(--color-primary);color:#fff;border:none;border-radius:999px;padding:0.4rem 0.9rem;font-size:0.8rem;font-weight:600;cursor:pointer;font-family:inherit;}
+main{max-width:1100px;margin:0 auto;padding:1.75rem 1.25rem;}
+.page-title{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.3rem;}
+.page-desc{color:var(--color-text-muted);font-size:0.9rem;margin-bottom:1.5rem;max-width:60ch;}
+
+/* Upload Panel */
+.upload-panel{background:var(--color-surface);border:1px solid var(--color-border);border-radius:0.875rem;padding:1.25rem;margin-bottom:2rem;display:none;}
+.upload-panel.open{display:block;}
+.upload-panel h2{font-size:1rem;font-weight:600;margin-bottom:0.25rem;}
+.upload-panel .panel-sub{font-size:0.8rem;color:var(--color-text-muted);margin-bottom:1rem;}
+.token-row{display:flex;gap:0.5rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap;}
+.token-row input{flex:1;min-width:180px;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.5rem;padding:0.55rem 0.75rem;font-size:0.85rem;color:var(--color-text);font-family:inherit;outline:none;}
+.token-row input:focus{border-color:var(--color-primary);}
+.token-hint{font-size:0.72rem;color:var(--color-text-muted);margin-bottom:1rem;}
+.token-hint a{color:var(--color-primary);text-decoration:none;}
+.drop-zone{border:2px dashed var(--color-border);border-radius:0.75rem;padding:2.5rem 1rem;text-align:center;cursor:pointer;transition:border-color 0.18s,background 0.18s;position:relative;}
+.drop-zone.drag-over{border-color:var(--color-primary);background:oklch(from var(--color-primary) l c h / 0.06);}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.drop-zone-icon{font-size:2rem;margin-bottom:0.5rem;}
+.drop-zone p{font-size:0.9rem;font-weight:500;margin-bottom:0.25rem;}
+.drop-zone small{font-size:0.75rem;color:var(--color-text-muted);}
+.file-queue{margin-top:1rem;display:flex;flex-direction:column;gap:0.4rem;}
+.file-item{display:flex;align-items:center;gap:0.75rem;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.5rem;padding:0.5rem 0.75rem;font-size:0.8rem;}
+.file-item img{width:36px;height:36px;object-fit:cover;border-radius:0.375rem;flex-shrink:0;}
+.file-item-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.file-item-status{font-size:0.7rem;flex-shrink:0;padding:0.15rem 0.5rem;border-radius:999px;}
+.status-pending{background:oklch(from var(--color-text-muted) l c h / 0.15);color:var(--color-text-muted);}
+.status-uploading{background:oklch(from var(--color-primary) l c h / 0.18);color:var(--color-primary);}
+.status-done{background:oklch(from var(--color-success) l c h / 0.18);color:var(--color-success);}
+.status-error{background:oklch(from var(--color-error) l c h / 0.18);color:var(--color-error);}
+.upload-btn{width:100%;margin-top:1rem;background:var(--color-primary);color:#fff;border:none;border-radius:0.625rem;padding:0.75rem;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.18s;}
+.upload-btn:hover{background:var(--color-primary-hover);}
+.upload-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.upload-progress{margin-top:0.75rem;font-size:0.8rem;color:var(--color-text-muted);text-align:center;}
+
+/* AI tip */
+.ai-tip{background:var(--color-surface);border:1px solid var(--color-border);border-radius:0.75rem;padding:0.875rem 1.1rem;margin-bottom:2rem;font-size:0.82rem;color:var(--color-text-muted);line-height:1.6;}
 .ai-tip strong{color:var(--color-primary);}
-.ai-tip code{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.375rem;padding:0.1em 0.4em;font-size:0.8em;color:var(--color-text);}
-.folder-section{margin-bottom:3rem;}
-.folder-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--color-border);}
-.folder-header h2{font-size:1.1rem;font-weight:600;}
-.folder-count{font-size:0.8rem;color:var(--color-text-muted);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:999px;padding:0.15rem 0.6rem;}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(200px,100%),1fr));gap:0.75rem;}
-.thumb{border-radius:0.625rem;overflow:hidden;background:var(--color-surface);border:1px solid var(--color-border);cursor:pointer;transition:transform 0.18s,box-shadow 0.18s;position:relative;}
+.ai-tip code{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.35rem;padding:0.1em 0.4em;font-size:0.78em;color:var(--color-text);}
+
+/* Gallery */
+.folder-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.1rem;padding-bottom:0.65rem;border-bottom:1px solid var(--color-border);}
+.folder-header h2{font-size:1rem;font-weight:600;}
+.folder-count{font-size:0.75rem;color:var(--color-text-muted);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:999px;padding:0.12rem 0.55rem;}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(160px,100%),1fr));gap:0.625rem;}
+.thumb{border-radius:0.6rem;overflow:hidden;background:var(--color-surface);border:1px solid var(--color-border);cursor:pointer;transition:transform 0.18s,box-shadow 0.18s;}
 .thumb:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
 .thumb img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
-.thumb-label{padding:0.5rem 0.625rem;font-size:0.7rem;color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.empty{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--color-text-muted);}
-.empty p{margin-bottom:1rem;font-size:1rem;}
-.empty code{display:block;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.5rem;padding:0.75rem 1rem;font-size:0.85rem;color:var(--color-text);margin:0.5rem auto;max-width:500px;text-align:left;}
-.lightbox{display:none;position:fixed;inset:0;z-index:1000;background:oklch(0 0 0/0.85);align-items:center;justify-content:center;padding:2rem;}
+.thumb-label{padding:0.4rem 0.55rem;font-size:0.65rem;color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.empty{grid-column:1/-1;text-align:center;padding:2.5rem 1rem;color:var(--color-text-muted);}
+.empty p{margin-bottom:0.75rem;}
+
+/* Lightbox */
+.lightbox{display:none;position:fixed;inset:0;z-index:1000;background:oklch(0 0 0/0.88);align-items:center;justify-content:center;padding:1.5rem;}
 .lightbox.open{display:flex;}
-.lightbox img{max-width:90vw;max-height:85vh;border-radius:0.75rem;object-fit:contain;box-shadow:var(--shadow-lg);}
-.lightbox-close{position:fixed;top:1.5rem;right:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:999px;width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;color:var(--color-text);}
-.lightbox-close:hover{background:var(--color-surface-2);}
-@media(max-width:600px){header{padding:0.75rem 1rem;}main{padding:1.5rem 1rem;}.gallery{gap:0.5rem;}}
+.lightbox img{max-width:90vw;max-height:88vh;border-radius:0.625rem;object-fit:contain;}
+.lb-close{position:fixed;top:1rem;right:1rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:999px;width:2.25rem;height:2.25rem;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:var(--color-text);}
+
+@media(max-width:480px){
+  .gallery{grid-template-columns:repeat(3,1fr);gap:0.4rem;}
+  main{padding:1.25rem 0.875rem;}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-label="Media Library logo">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-label="logo">
       <rect x="2" y="2" width="11" height="11" rx="2.5" fill="currentColor" opacity="0.9"/>
       <rect x="15" y="2" width="11" height="11" rx="2.5" fill="currentColor" opacity="0.55"/>
       <rect x="2" y="15" width="11" height="11" rx="2.5" fill="currentColor" opacity="0.55"/>
@@ -61,51 +97,185 @@ main{max-width:1200px;margin:0 auto;padding:2.5rem 2rem;}
     </div>
   </div>
   <div class="header-right">
-    <span class="how-to">AI: browse raw files at /imgs/ folder</span>
-    <button class="theme-btn" data-theme-toggle aria-label="Toggle theme">☀ Light</button>
+    <button class="theme-btn" data-theme-toggle>☀</button>
+    <button class="upload-toggle" id="upload-toggle-btn">+ Upload</button>
   </div>
 </header>
 
 <main>
   <h1 class="page-title">Jaron's Photo Archive</h1>
-  <p class="page-desc">A persistent media library — upload once, accessible to any AI assistant or collaborator via public GitHub raw URLs.</p>
+  <p class="page-desc">Upload from your phone, then any AI can access everything via raw GitHub URLs.</p>
 
-  <div class="ai-tip">
-    <strong>For AI Assistants:</strong> All images are publicly accessible as raw files. Reference any image directly with the pattern:<br>
-    <code>https://raw.githubusercontent.com/JaronKBragg7337/Pictures-screenshots/main/imgs/FILENAME.jpeg</code><br>
-    Browse the full file list at: <code>https://github.com/JaronKBragg7337/Pictures-screenshots/tree/main/imgs</code>
+  <!-- Upload Panel -->
+  <div class="upload-panel" id="upload-panel">
+    <h2>📤 Upload from Phone</h2>
+    <p class="panel-sub">Select photos from your Camera Roll — they'll go straight into the repo.</p>
+
+    <div class="token-row">
+      <input type="password" id="gh-token" placeholder="GitHub Personal Access Token" autocomplete="off" spellcheck="false">
+    </div>
+    <p class="token-hint">
+      Need a token? <a href="https://github.com/settings/tokens/new?scopes=public_repo&description=MediaLibraryUpload" target="_blank" rel="noopener">Create one here</a> — select <strong>public_repo</strong> scope only. Token stays in your browser, never sent anywhere except GitHub.
+    </p>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept="image/*" multiple capture>
+      <div class="drop-zone-icon">📷</div>
+      <p>Tap to pick photos from Camera Roll</p>
+      <small>JPEG, PNG, WEBP, GIF — multiple at once</small>
+    </div>
+
+    <div class="file-queue" id="file-queue"></div>
+    <button class="upload-btn" id="upload-btn" disabled>Upload to GitHub</button>
+    <p class="upload-progress" id="upload-progress"></p>
   </div>
 
-  <div class="folder-section">
-    <div class="folder-header">
-      <h2>📁 imgs/</h2>
-      <span class="folder-count" id="img-count">Loading...</span>
-    </div>
-    <div class="gallery" id="gallery">
-      <div class="empty">
-        <p>Images will appear here once uploaded to the <strong>imgs/</strong> folder.</p>
-        <p>Upload your 30 JPEGs via:</p>
-        <code>git clone https://github.com/JaronKBragg7337/Pictures-screenshots<br>mkdir -p Pictures-screenshots/imgs<br># copy your JPEGs into imgs/<br>cd Pictures-screenshots && git add . && git commit -m "Add photos" && git push</code>
-        <p style="margin-top:1rem;font-size:0.8rem;">Or drag &amp; drop directly on GitHub → <strong>Add file → Upload files</strong> inside the imgs/ folder.</p>
-      </div>
-    </div>
+  <!-- AI Tip -->
+  <div class="ai-tip">
+    <strong>For AI Assistants:</strong> Raw image URL pattern:<br>
+    <code>https://raw.githubusercontent.com/JaronKBragg7337/Pictures-screenshots/main/imgs/FILENAME.jpeg</code><br>
+    List all files: <code>https://api.github.com/repos/JaronKBragg7337/Pictures-screenshots/contents/imgs</code>
+  </div>
+
+  <!-- Gallery -->
+  <div class="folder-header">
+    <h2>📁 imgs/</h2>
+    <span class="folder-count" id="img-count">Loading…</span>
+  </div>
+  <div class="gallery" id="gallery">
+    <div class="empty"><p>No images yet — upload some above!</p></div>
   </div>
 </main>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
-  <button class="lightbox-close" id="lb-close" aria-label="Close lightbox">✕</button>
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lb-close">✕</button>
   <img id="lb-img" src="" alt="">
 </div>
 
 <script>
-(function(){const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;let d=r.getAttribute('data-theme')||'dark';t&&t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);t.textContent=d==='dark'?'☀ Light':'🌙 Dark';});t.textContent=d==='dark'?'☀ Light':'🌙 Dark';})();
+// Theme
+(function(){
+  const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
+  let d=r.getAttribute('data-theme')||'dark';
+  t&&t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);t.textContent=d==='dark'?'☀':'🌙';});
+})();
+
+// Upload panel toggle
+document.getElementById('upload-toggle-btn').addEventListener('click',()=>{
+  const p=document.getElementById('upload-panel');
+  p.classList.toggle('open');
+});
+
+// File input / drag-drop
+const fileInput=document.getElementById('file-input');
+const queue=document.getElementById('file-queue');
+const uploadBtn=document.getElementById('upload-btn');
+const dropZone=document.getElementById('drop-zone');
+let selectedFiles=[];
+
+fileInput.addEventListener('change',e=>addFiles([...e.target.files]));
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over');});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');addFiles([...e.dataTransfer.files]);});
+
+function addFiles(files){
+  const imgs=files.filter(f=>f.type.startsWith('image/'));
+  selectedFiles=[...selectedFiles,...imgs];
+  renderQueue();
+  uploadBtn.disabled=selectedFiles.length===0;
+}
+
+function renderQueue(){
+  queue.innerHTML='';
+  selectedFiles.forEach((f,i)=>{
+    const div=document.createElement('div');div.className='file-item';div.id='fitem-'+i;
+    const url=URL.createObjectURL(f);
+    div.innerHTML=`<img src="${url}" alt="${f.name}"><span class="file-item-name">${f.name}</span><span class="file-item-status status-pending" id="fstatus-${i}">Pending</span>`;
+    queue.appendChild(div);
+  });
+}
+
+function setStatus(i,cls,label){
+  const s=document.getElementById('fstatus-'+i);
+  if(s){s.className='file-item-status '+cls;s.textContent=label;}
+}
+
+// Upload to GitHub via API
 const OWNER='JaronKBragg7337',REPO='Pictures-screenshots',BRANCH='main',FOLDER='imgs';
+
+async function toBase64(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(r.result.split(',')[1]);
+    r.onerror=rej;
+    r.readAsDataURL(file);
+  });
+}
+
+async function uploadFile(file,token,index){
+  setStatus(index,'status-uploading','Uploading…');
+  const b64=await toBase64(file);
+  const path=`${FOLDER}/${file.name}`;
+  const apiUrl=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+
+  // Check if file exists (need SHA for update)
+  let sha=null;
+  try{
+    const check=await fetch(apiUrl,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github+json'}});
+    if(check.ok){const d=await check.json();sha=d.sha;}
+  }catch(e){}
+
+  const body={message:`Upload ${file.name} from mobile`,content:b64,branch:BRANCH};
+  if(sha)body.sha=sha;
+
+  const res=await fetch(apiUrl,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github+json'},body:JSON.stringify(body)});
+  if(!res.ok){const err=await res.json();throw new Error(err.message||res.status);}
+  setStatus(index,'status-done','✓ Done');
+}
+
+uploadBtn.addEventListener('click',async()=>{
+  const token=document.getElementById('gh-token').value.trim();
+  if(!token){alert('Paste your GitHub token first.');return;}
+  if(selectedFiles.length===0)return;
+  uploadBtn.disabled=true;
+  const prog=document.getElementById('upload-progress');
+  let done=0,failed=0;
+  for(let i=0;i<selectedFiles.length;i++){
+    prog.textContent=`Uploading ${i+1} of ${selectedFiles.length}…`;
+    try{await uploadFile(selectedFiles[i],token,i);done++;}
+    catch(e){setStatus(i,'status-error','✗ Failed');failed++;console.error(e);}
+  }
+  prog.textContent=`Done! ${done} uploaded${failed?', '+failed+' failed':''}.`;
+  selectedFiles=[];uploadBtn.disabled=false;
+  loadGallery();
+});
+
+// Gallery loader
+const galleryEl=document.getElementById('gallery');
+const countEl=document.getElementById('img-count');
 const RAW=`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${FOLDER}/`;
 const API=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FOLDER}`;
-const gallery=document.getElementById('gallery');const count=document.getElementById('img-count');
-fetch(API).then(r=>{if(!r.ok)throw new Error('folder not found');return r.json();}).then(files=>{const imgs=files.filter(f=>/\.(jpe?g|png|gif|webp|avif)$/i.test(f.name));count.textContent=imgs.length+' images';if(imgs.length===0){count.textContent='empty';return;}gallery.innerHTML='';imgs.forEach(f=>{const d=document.createElement('div');d.className='thumb';d.innerHTML=`<img src="${RAW+f.name}" alt="${f.name}" loading="lazy" width="200" height="200"><div class="thumb-label">${f.name}</div>`;d.addEventListener('click',()=>openLightbox(RAW+f.name,f.name));gallery.appendChild(d);});}).catch(()=>{count.textContent='upload imgs/ to see gallery';});
-const lb=document.getElementById('lightbox');const lbImg=document.getElementById('lb-img');
-function openLightbox(src,alt){lbImg.src=src;lbImg.alt=alt;lb.classList.add('open');}
+
+function loadGallery(){
+  fetch(API).then(r=>{if(!r.ok)throw new Error();return r.json();})
+  .then(files=>{
+    const imgs=files.filter(f=>/\.(jpe?g|png|gif|webp|avif)$/i.test(f.name));
+    countEl.textContent=imgs.length+' images';
+    if(!imgs.length){galleryEl.innerHTML='<div class="empty"><p>No images yet — upload some above!</p></div>';return;}
+    galleryEl.innerHTML='';
+    imgs.forEach(f=>{
+      const d=document.createElement('div');d.className='thumb';
+      d.innerHTML=`<img src="${RAW+f.name}" alt="${f.name}" loading="lazy" width="160" height="160"><div class="thumb-label">${f.name}</div>`;
+      d.addEventListener('click',()=>openLb(RAW+f.name,f.name));
+      galleryEl.appendChild(d);
+    });
+  }).catch(()=>{countEl.textContent='—';});
+}
+loadGallery();
+
+// Lightbox
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lb-img');
+function openLb(src,alt){lbImg.src=src;lbImg.alt=alt;lb.classList.add('open');}
 document.getElementById('lb-close').addEventListener('click',()=>lb.classList.remove('open'));
 lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open');});
