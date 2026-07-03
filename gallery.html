@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaron's Media Library</title>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{--color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;--color-border:#d4d1ca;--color-text:#28251d;--color-text-muted:#7a7974;--color-primary:#01696f;--color-primary-hover:#0c4e54;--shadow-sm:0 1px 2px oklch(0.2 0.01 80/0.06);--shadow-md:0 4px 12px oklch(0.2 0.01 80/0.08);--shadow-lg:0 12px 32px oklch(0.2 0.01 80/0.12);}
+[data-theme="dark"]{--color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;--color-border:#393836;--color-text:#cdccca;--color-text-muted:#797876;--color-primary:#4f98a3;--color-primary-hover:#227f8b;--shadow-sm:0 1px 2px oklch(0/0.2);--shadow-md:0 4px 12px oklch(0/0.3);--shadow-lg:0 12px 32px oklch(0/0.4);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+body{min-height:100dvh;font-family:'Satoshi',sans-serif;background:var(--color-bg);color:var(--color-text);transition:background 0.2s,color 0.2s;}
+header{position:sticky;top:0;z-index:100;background:var(--color-surface);border-bottom:1px solid var(--color-border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.logo{display:flex;align-items:center;gap:0.75rem;}
+.logo svg{color:var(--color-primary);}
+.logo-text{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;}
+.logo-sub{font-size:0.8rem;color:var(--color-text-muted);font-weight:400;}
+.header-right{display:flex;align-items:center;gap:1rem;}
+.theme-btn{background:none;border:1px solid var(--color-border);border-radius:999px;padding:0.4rem 0.75rem;font-size:0.8rem;color:var(--color-text-muted);cursor:pointer;transition:all 0.18s;}
+.theme-btn:hover{color:var(--color-text);border-color:var(--color-primary);}
+.how-to{font-size:0.8rem;color:var(--color-text-muted);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.5rem;padding:0.35rem 0.75rem;}
+main{max-width:1200px;margin:0 auto;padding:2.5rem 2rem;}
+.page-title{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.4rem;}
+.page-desc{color:var(--color-text-muted);font-size:0.95rem;margin-bottom:2rem;max-width:60ch;}
+.ai-tip{background:var(--color-surface);border:1px solid var(--color-border);border-radius:0.75rem;padding:1rem 1.25rem;margin-bottom:2.5rem;font-size:0.875rem;color:var(--color-text-muted);line-height:1.6;}
+.ai-tip strong{color:var(--color-primary);}
+.ai-tip code{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.375rem;padding:0.1em 0.4em;font-size:0.8em;color:var(--color-text);}
+.folder-section{margin-bottom:3rem;}
+.folder-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1px solid var(--color-border);}
+.folder-header h2{font-size:1.1rem;font-weight:600;}
+.folder-count{font-size:0.8rem;color:var(--color-text-muted);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:999px;padding:0.15rem 0.6rem;}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(200px,100%),1fr));gap:0.75rem;}
+.thumb{border-radius:0.625rem;overflow:hidden;background:var(--color-surface);border:1px solid var(--color-border);cursor:pointer;transition:transform 0.18s,box-shadow 0.18s;position:relative;}
+.thumb:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.thumb img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+.thumb-label{padding:0.5rem 0.625rem;font-size:0.7rem;color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.empty{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--color-text-muted);}
+.empty p{margin-bottom:1rem;font-size:1rem;}
+.empty code{display:block;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:0.5rem;padding:0.75rem 1rem;font-size:0.85rem;color:var(--color-text);margin:0.5rem auto;max-width:500px;text-align:left;}
+.lightbox{display:none;position:fixed;inset:0;z-index:1000;background:oklch(0 0 0/0.85);align-items:center;justify-content:center;padding:2rem;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:0.75rem;object-fit:contain;box-shadow:var(--shadow-lg);}
+.lightbox-close{position:fixed;top:1.5rem;right:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:999px;width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;color:var(--color-text);}
+.lightbox-close:hover{background:var(--color-surface-2);}
+@media(max-width:600px){header{padding:0.75rem 1rem;}main{padding:1.5rem 1rem;}.gallery{gap:0.5rem;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-label="Media Library logo">
+      <rect x="2" y="2" width="11" height="11" rx="2.5" fill="currentColor" opacity="0.9"/>
+      <rect x="15" y="2" width="11" height="11" rx="2.5" fill="currentColor" opacity="0.55"/>
+      <rect x="2" y="15" width="11" height="11" rx="2.5" fill="currentColor" opacity="0.55"/>
+      <rect x="15" y="15" width="11" height="11" rx="2.5" fill="currentColor" opacity="0.35"/>
+    </svg>
+    <div>
+      <div class="logo-text">Media Library</div>
+      <div class="logo-sub">JaronKBragg7337</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="how-to">AI: browse raw files at /imgs/ folder</span>
+    <button class="theme-btn" data-theme-toggle aria-label="Toggle theme">☀ Light</button>
+  </div>
+</header>
+
+<main>
+  <h1 class="page-title">Jaron's Photo Archive</h1>
+  <p class="page-desc">A persistent media library — upload once, accessible to any AI assistant or collaborator via public GitHub raw URLs.</p>
+
+  <div class="ai-tip">
+    <strong>For AI Assistants:</strong> All images are publicly accessible as raw files. Reference any image directly with the pattern:<br>
+    <code>https://raw.githubusercontent.com/JaronKBragg7337/Pictures-screenshots/main/imgs/FILENAME.jpeg</code><br>
+    Browse the full file list at: <code>https://github.com/JaronKBragg7337/Pictures-screenshots/tree/main/imgs</code>
+  </div>
+
+  <div class="folder-section">
+    <div class="folder-header">
+      <h2>📁 imgs/</h2>
+      <span class="folder-count" id="img-count">Loading...</span>
+    </div>
+    <div class="gallery" id="gallery">
+      <div class="empty">
+        <p>Images will appear here once uploaded to the <strong>imgs/</strong> folder.</p>
+        <p>Upload your 30 JPEGs via:</p>
+        <code>git clone https://github.com/JaronKBragg7337/Pictures-screenshots<br>mkdir -p Pictures-screenshots/imgs<br># copy your JPEGs into imgs/<br>cd Pictures-screenshots && git add . && git commit -m "Add photos" && git push</code>
+        <p style="margin-top:1rem;font-size:0.8rem;">Or drag &amp; drop directly on GitHub → <strong>Add file → Upload files</strong> inside the imgs/ folder.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="lb-close" aria-label="Close lightbox">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+(function(){const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;let d=r.getAttribute('data-theme')||'dark';t&&t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);t.textContent=d==='dark'?'☀ Light':'🌙 Dark';});t.textContent=d==='dark'?'☀ Light':'🌙 Dark';})();
+const OWNER='JaronKBragg7337',REPO='Pictures-screenshots',BRANCH='main',FOLDER='imgs';
+const RAW=`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${FOLDER}/`;
+const API=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FOLDER}`;
+const gallery=document.getElementById('gallery');const count=document.getElementById('img-count');
+fetch(API).then(r=>{if(!r.ok)throw new Error('folder not found');return r.json();}).then(files=>{const imgs=files.filter(f=>/\.(jpe?g|png|gif|webp|avif)$/i.test(f.name));count.textContent=imgs.length+' images';if(imgs.length===0){count.textContent='empty';return;}gallery.innerHTML='';imgs.forEach(f=>{const d=document.createElement('div');d.className='thumb';d.innerHTML=`<img src="${RAW+f.name}" alt="${f.name}" loading="lazy" width="200" height="200"><div class="thumb-label">${f.name}</div>`;d.addEventListener('click',()=>openLightbox(RAW+f.name,f.name));gallery.appendChild(d);});}).catch(()=>{count.textContent='upload imgs/ to see gallery';});
+const lb=document.getElementById('lightbox');const lbImg=document.getElementById('lb-img');
+function openLightbox(src,alt){lbImg.src=src;lbImg.alt=alt;lb.classList.add('open');}
+document.getElementById('lb-close').addEventListener('click',()=>lb.classList.remove('open'));
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open');});
+</script>
+</body>
+</html>
