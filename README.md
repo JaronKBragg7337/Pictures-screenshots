@@ -1,3 +1,8 @@
+> **Status check — 2026-08-10.** `imgs/` is currently empty — only a `.gitkeep` is
+> committed — so the raw URLs described below resolve to nothing until images are
+> added. The gallery viewer itself works; there is simply nothing in it yet. Worth
+> knowing before pointing an AI assistant at this repo expecting to find media.
+
 # 📸 Jaron's Media Library
 
 A persistent, public media archive — upload once, accessible to any AI assistant or human collaborator without re-uploading.
